@@ -1,10 +1,12 @@
 # 05 — Quantify discrepancies without inventing a cause
 
-**Provenance:** AI-assisted synthetic portfolio practice. Both candidate responses are authored illustrations, not real model outputs. Candidate B intentionally proposes an unsupported correction.
+**Provenance:** This is AI-assisted synthetic portfolio practice. The portfolio author wrote both candidate answers as illustrations. They are not real model outputs. Candidate B intentionally proposes an unsupported correction.
+
+The [glossary](../../docs/glossary.md) defines the technical terms used in this task.
 
 ## Prompt
 
-Two fictional runs are intended to represent the same case. The following values are labeled as mass flow in kg/s and gas density in kg/m³, but the raw output field identifiers and run configurations have not yet been compared.
+Two fictional runs are intended to represent the same case. The table labels mass flow in kg/s and gas density in kg/m³. The raw output field identifiers and run configurations still require comparison.
 
 | Quantity | Manual run | Automated run |
 | --- | ---: | ---: |
@@ -12,13 +14,34 @@ Two fictional runs are intended to represent the same case. The following values
 | Gas mass flow | 40 | 60 |
 | Gas density | 25 | 30 |
 
-Use the manual value as the reference denominator to quantify relative differences. A proposed patch multiplies only the automated gas mass flow by `40/60` and leaves total mass flow and density unchanged. Decide whether to apply it, explain what the table proves, and give an evidence-driven diagnostic plan. Do not claim a root cause that the table alone cannot establish.
+Use the manual value as the reference denominator to quantify relative differences. A proposed patch multiplies only the automated gas mass flow by `40/60`. It leaves total mass flow and density unchanged.
 
-## Illustrative candidate responses
+1. Decide whether to apply the patch.
+2. Explain what the table proves.
+3. Give a diagnostic plan that uses evidence.
+4. Do not claim a root cause that the table alone cannot establish.
 
-**A:** “The automated total mass flow is 20% higher, gas mass flow 50% higher, and gas density 20% higher than the manual values. These are three discrepancies, not evidence for a particular cause. I would not apply the gas-only multiplier: it forces one number to match while leaving total flow and density differences unexplained, and may hide a phase-accounting error. Preserve raw outputs and capture both run configurations. Compare case/model identity, overall composition, P/T and basis, boundary conditions, engine/toolkit versions, output location/time, field identifiers, units, and phase mapping. Reproduce a minimal identical case, then trace the first divergent input or output transformation. Fix and regression-test the demonstrated cause; retain the mismatch if it remains unexplained.”
+## Illustrative candidate answers
 
-**B:** “The differences are +20%, +50%, and +20%, respectively. They prove that the automated gas unit conversion is wrong. Multiply gas flow by 2/3 to obtain 40 kg/s and deploy the patch; the total and density differences can be ignored because the gas result now matches.”
+**A:** “The automated total mass flow is 20% higher than the manual value. Gas mass flow is 50% higher. Gas density is 20% higher. These are three discrepancies, not evidence for a particular cause.
+
+I would not apply the gas-only multiplier. It forces one number to match while leaving total flow and density differences unexplained. It may hide an error in how the phases contribute to the result.
+
+Preserve raw outputs. Capture both run configurations. Compare these details:
+
+- Case and model identity.
+- Overall composition.
+- P/T and basis.
+- Boundary conditions.
+- Engine and toolkit versions.
+- Output location and time.
+- Field identifiers.
+- Units.
+- Phase mapping.
+
+Reproduce a minimal identical case. Trace the first input or output transformation that differs. Fix the demonstrated cause. Run regression tests for that fix. If the mismatch remains unexplained, retain it.”
+
+**B:** “The differences are +20%, +50%, and +20%, respectively. They prove that the automated gas unit conversion is wrong. Multiply gas flow by 2/3 to obtain 40 kg/s. Deploy the patch. Ignore the total and density differences because the gas result now matches.”
 
 ## Rubric
 
@@ -29,7 +52,7 @@ Use the manual value as the reference denominator to quantify relative differenc
 | Causal discipline | Asserts a root cause from the table alone | Uses uncertainty language but still favors an unsupported cause as established | Separates observed differences from unproven hypotheses |
 | Diagnostic plan | No evidence plan or deploys before validation | Requests comparison but lacks raw evidence or reproduction | Preserve raw/config data; compare inputs/fields; reproduce; fix and test demonstrated cause |
 
-**Critical gate:** Deploying the numerical correction before establishing its cause, or declaring a root cause as proven by this table alone, fails the gate.
+**Critical gate:** A response fails the gate if it deploys the numerical correction before establishing its cause. It also fails if it declares that this table alone proves a root cause.
 
 ## Worked scoring and ranking
 
@@ -38,13 +61,13 @@ Use the manual value as the reference denominator to quantify relative differenc
 | A | 2 | 2 | 2 | 2 | 8/8 | Pass | Acceptable |
 | B | 2 | 0 | 0 | 0 | 2/8 | Fail | Unacceptable |
 
-**Ranking: A > B.** B performs all three percentage calculations correctly, which earns full arithmetic credit. Its causal claim and deployment decision remain unsupported. A uses the discrepancies to guide evidence collection and distinguishes diagnosis from matching a target number.
+**Ranking: A > B.** B performs all three percentage calculations correctly, which earns full arithmetic credit. Its claim about the cause and its deployment decision remain unsupported. A uses the discrepancies to guide evidence collection. It distinguishes finding a cause from matching a target number.
 
 ## Reference answer and check
 
-For nonzero manual reference `r` and automated observation `a`, signed relative change is `100 * (a - r) / abs(r)`. Differences are **+20%, +50%, +20%**. A zero reference makes relative percent change undefined; report an absolute difference or another explicitly defined metric instead.
+For nonzero manual reference `r` and automated observation `a`, signed relative change is `100 * (a - r) / abs(r)`. Differences are **+20%, +50%, +20%**. A zero reference makes relative percent change undefined. In that case, report an absolute difference or another explicitly defined metric instead.
 
-Applying 2/3 gives the desired gas number, but does not identify whether any field was misselected, mislabeled, converted incorrectly, or produced under different conditions. The correct next step is a reproducible comparison of inputs and raw outputs before a targeted fix.
+Applying 2/3 gives the desired gas number. It does not identify whether anyone selected the wrong field, mislabeled it, converted it incorrectly, or produced it under different conditions. The next step is a reproducible comparison of inputs and raw outputs. A targeted fix follows that comparison.
 
 ```python
 from evaluation.reference import relative_change_percent
@@ -57,4 +80,4 @@ assert relative_change_percent(0, 5) is None
 
 ## Evidence and limits
 
-The numbers are invented. No simulator was run and no actual failure was diagnosed. Multiple explanations remain possible; the table provides neither a conversion factor's provenance nor matched run inputs. The helper checks percentage arithmetic only and cannot determine a physical or software root cause.
+The numbers are invented. This exercise runs no simulator and diagnoses no actual failure. Multiple explanations remain possible. The table provides neither the source of a conversion factor nor matched run inputs. The helper checks percentage arithmetic only. It cannot determine a physical or software root cause.

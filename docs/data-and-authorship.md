@@ -1,25 +1,32 @@
 # Data and authorship
 
-## What is public
+## Public content
 
-This repository contains newly written project summaries, synthetic evaluation scenarios, illustrative candidate answers, small reference functions, and tests. The numeric examples and scenario labels in the evaluation pack were created for the portfolio.
+This repository contains project summaries, synthetic exercises, example answers, reference functions, and tests. The numeric examples and scenario labels were created for this portfolio.
 
-The project case studies are based on inspection of private engineering application source and tests. They describe observable design decisions without reproducing private engineering datasets, model files, internal reports, or proprietary simulation binaries.
+The case studies describe an inspection of code and tests from private engineering applications. They explain design decisions. They do not include private datasets, model files, internal reports, or proprietary simulation programs.
 
 ## AI assistance
 
-This portfolio was assembled with AI assistance, including drafting, code generation, and automated consistency checks. The evaluation responses were authored as teaching examples. They are not transcripts of paid evaluation work, employer assignments, or experiments comparing named AI systems.
+AI helped draft this portfolio, generate code, and check consistency. The candidate answers are teaching examples. They are not records of paid evaluation work, employer assignments, or experiments that compare named AI systems.
 
-The public test suite provides reproducible checks for the included reference functions. Passing those checks supports those functions and their documented assumptions; it does not independently validate the original simulation applications or establish professional qualifications.
+The public tests provide checks that another reviewer can repeat. Passing tests supports the included functions and their stated assumptions. It does not validate the original simulation applications or establish professional qualifications.
 
-## Evaluation boundaries
+## Limits of the evaluations
 
-- Rubric scores apply only to the illustrative answers presented with each task.
-- A good answer must satisfy the task's critical correctness criteria, even if it is otherwise clear and well written.
-- Scenario review thresholds are explicit task assumptions, not universal engineering standards.
-- No model accuracy, hiring outcome, production adoption, or time-saving statistic is claimed.
-- Third-party product names identify the applications discussed. No affiliation or endorsement is implied.
+- Each rubric score applies only to the example answer in that task.
+- An acceptable answer must meet the critical correctness rules, even when the writing is clear.
+- Each review threshold is an explicit assumption for the task, not a universal engineering standard.
+- The portfolio does not claim model accuracy, hiring outcomes, production use, or measured time savings.
+- Third-party product names identify the applications discussed. They do not indicate affiliation or endorsement.
 
-## Reproducing and discussing the examples
+## Check or discuss an example
 
-Run the tests locally and compare the result with the published GitHub Actions run. When reporting a problem, provide the task ID, input, expected result, and observed result using synthetic data. Do not attach customer models, confidential documents, access tokens, or credentials.
+1. Run the tests locally.
+2. Compare the results with the published GitHub Actions run.
+3. Use synthetic data when you report a problem.
+4. Include the task ID, input, expected result, and actual result.
+
+Do not attach customer models, confidential documents, access tokens, or credentials.
+
+[Read the technical glossary](glossary.md). · [Return to the portfolio](../README.md).

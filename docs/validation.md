@@ -1,26 +1,40 @@
 # Validation record
 
-## Public evaluation pack
+## Check the public exercises
 
-The reference implementation is designed to run with Python 3.10+ and the standard library. The test suite exercises calculations and decision rules, including invalid inputs and boundary cases.
+The reference code uses Python 3.10 or newer and the Python standard library. The tests check calculations and decision rules. They include invalid inputs and values at specified limits.
 
-From the repository root:
+1. Open the repository folder.
+2. Run the tests:
 
 ```sh
 python -m unittest discover -s tests -v
+```
+
+3. Check the local documentation links:
+
+```sh
 python tools/check_links.py
 ```
 
-The [Portfolio checks workflow](https://github.com/ProcessFA-Tools/ai-evaluation-portfolio/actions/workflows/verify.yml) runs these checks on Python 3.10 and 3.12. Its status and logs are the current evidence for the public repository.
+The [Portfolio checks workflow](https://github.com/ProcessFA-Tools/ai-evaluation-portfolio/actions/workflows/verify.yml) runs these checks on Python 3.10 and 3.12. Its status and logs show the current results for the public repository.
 
-## Private project case studies
+## Evidence for the private projects
 
-The four case studies were written after inspecting application source and associated tests. File references in those case studies identify the inspected components, not downloadable public source.
+The case studies describe an inspection of application code and tests. Their file references identify the inspected components. The references do not link to public source files.
 
-No licensed PIPESIM or Multiflash simulation was rerun as part of preparing this portfolio. No new end-to-end QGIS or source-drawing extraction result is claimed. The publicly runnable examples demonstrate specific evaluation concepts independently of those applications.
+Portfolio preparation did not include a new PIPESIM or Multiflash simulation. It did not include a complete QGIS test or a new extraction from a source drawing. The public examples demonstrate specific evaluation methods without those applications.
 
-The PIPESIM case study also records a runtime documentation discrepancy: current compatibility logic and tests are stronger evidence than the older release-specific README text. A live engine-startup blocker remains distinct from the correctness of unit conversions and report logic.
+The PIPESIM case study identifies a difference between the code and the older README. Current code and tests define compatibility more accurately than the older text. A previous live test could not start the simulation server. That failure does not establish whether the unit conversions or report logic are correct.
 
-## What these checks establish
+## What the checks establish
 
-The checks support the specific synthetic examples and tested input contracts. They do not establish that a numerical model is valid for a real fluid, that a selected route is feasible on real terrain, or that a recovered drawing value is accurate without source review. Those conclusions require their own inputs and validation evidence.
+The checks support the synthetic examples and the input requirements covered by the tests. They do not establish these conclusions:
+
+- A numerical model represents a real fluid accurately.
+- A selected route meets the requirements of real terrain.
+- A recovered drawing value is accurate without a check of the source.
+
+Each conclusion needs its own inputs and validation evidence.
+
+[Read the technical glossary](glossary.md). · [Return to the portfolio](../README.md).
